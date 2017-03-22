@@ -251,11 +251,13 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 
 	// performs initial request to server to retrieve initial params
 	var performInitialRequest = function() {
+		var url = buildConnectorUrl({
+            mode: 'initiate'
+        });
+		console.log(url);
         return $.ajax({
             type: 'GET',
-            url: buildConnectorUrl({
-                mode: 'initiate'
-            }),
+            url: url,
             dataType: 'json'
         }).done(function(response) {
             if(response.data) {

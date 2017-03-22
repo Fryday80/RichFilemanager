@@ -25,24 +25,31 @@ function auth()
     return true;
 }
 
-$config = array();
+function getFileBrowserFor($dataPath) {
+    $config = array();
 
-// example to override the default config
-//$config = array(
-//    'upload' => array(
-//        'policy' => 'DISALLOW_ALL',
-//        'restrictions' => array(
-//            'pdf',
+    // example to override the default config
+    $config = array(
+//        'upload' => array(
+//            'policy' => 'DISALLOW_ALL',
+//            'restrictions' => array(
+//                'pdf',
+//            ),
 //        ),
-//    ),
-//);
+        "options" => [
+            "serverRoot" => false,
+            "fileRoot" => $dataPath,
+        ],
+    );
 
-$fm = Fm::app()->getInstance($config);
+    $fm = Fm::app()->getInstance($config);
+    $fm->setFileRoot($dataPath, true, false);
 
-// example to setup files root folder
-//$fm->setFileRoot('userfiles', true);
+    // example to setup files root folder
+    //$fm->setFileRoot('userfiles', true);
 
-// example to set list of allowed actions
-//$fm->setAllowedActions(["select", "move"]);
-
-$fm->handleRequest();
+    // example to set list of allowed actions
+    //$fm->setAllowedActions(["select", "move"]);
+    return $fm;
+    //$fm->handleRequest();
+}
