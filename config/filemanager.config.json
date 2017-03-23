@@ -3,7 +3,7 @@
     "options": {
         "culture": "de",
         "theme": "flat-dark",
-        "defaultViewMode": "grid",
+        "defaultViewMode": "list",
         "localizeGUI": true,
         "showFullPath": false,
         "showTitleAttr": false,
@@ -60,7 +60,7 @@
     },
     "upload": {
         "multiple": true,
-        "maxNumberOfFiles": 5,
+        "maxNumberOfFiles": 40,
         "paramName": "files",
         "chunkSize": false,
         "fileSizeLimit": 16000000,
@@ -101,7 +101,7 @@
     },
     "viewer": {
         "absolutePath": true,
-        "previewUrl": false,
+        "previewUrl": "media/file",
         "image": {
             "enabled": true,
             "showThumbs": true,

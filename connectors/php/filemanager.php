@@ -26,16 +26,7 @@ function auth()
 }
 
 function getFileBrowserFor($dataPath) {
-    $config = array();
-
-    // example to override the default config
     $config = array(
-//        'upload' => array(
-//            'policy' => 'DISALLOW_ALL',
-//            'restrictions' => array(
-//                'pdf',
-//            ),
-//        ),
         "options" => [
             "serverRoot" => false,
             "fileRoot" => $dataPath,

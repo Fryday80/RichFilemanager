@@ -10,6 +10,7 @@
  *	@copyright	Authors
  */
 
+
 (function($) {
 
 $.richFilemanagerPlugin = function(element, pluginOptions)
@@ -30,7 +31,9 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 			beforeSelectItem: function (resourceObject, url) {
 				return url;
 			},
-			afterSelectItem: function (resourceObject, url, contextWindow) {}
+			afterSelectItem: function (resourceObject, url, contextWindow) {},
+            previewChanged: function (resourceObject, url) {},
+            afterInit: function (fm, fmModel) {}
 		}
 	};
 
@@ -82,7 +85,6 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 	// The plugin's final settings, contains the merged default and user-provided options (if any)
     fm.settings = $.extend(true, defaults, pluginOptions);
 
-
 	/*--------------------------------------------------------------------------------------------------------------
 	 Public methods
 	 Can be called like:
@@ -119,7 +121,6 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 		log[options.type](message, options.onClick);
 		return log;
 	};
-
 	fm.error = function(message, options) {
 		return fm.log(message, $.extend({}, {
 			type: 'error',
@@ -254,7 +255,6 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 		var url = buildConnectorUrl({
             mode: 'initiate'
         });
-		console.log(url);
         return $.ajax({
             type: 'GET',
             url: url,
@@ -774,6 +774,8 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
             fm.setDimensions();
 		});
         fm.setDimensions();
+
+        fm.settings.callbacks.afterInit(fm, fmModel);
 	};
 
 	/**
@@ -943,6 +945,8 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 				} else {
                     model.previewFile(true);
 				}
+
+                fm.settings.callbacks.previewChanged(resourceObject, createPreviewUrl(resourceObject, false));
             };
 
             ZeroClipboard.config({swfPath: fm.settings.baseUrl + '/scripts/zeroclipboard/dist/ZeroClipboard.swf'});
@@ -1416,7 +1420,6 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
                     items_model.continiousSelection(false);
 				}
 			});
-
 			this.createObject = function(resourceObject) {
 				return new ItemObject(resourceObject);
 			};
@@ -1688,6 +1691,9 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 					}
 				};
 
+				this.getUrl = function() {
+                    return createPreviewUrl(this.rdo, true);
+				}
 				this.remove = function() {
 					items_model.objects.remove(this);
 				};
@@ -2795,7 +2801,7 @@ $.richFilemanagerPlugin = function(element, pluginOptions)
 	};
 
 	var buildAbsolutePath = function(path, disableCache) {
-		var url = (typeof config.viewer.previewUrl === "string") ? config.viewer.previewUrl : location.origin;
+		var url = (typeof config.viewer.previewUrl === "string") ? location.origin + "/" + config.viewer.previewUrl : location.origin;
         url = trim(url, '/') + path;
 		// add timestamp-based query parameter to disable browser caching
 		if (disableCache) {
