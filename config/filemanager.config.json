@@ -66,6 +66,7 @@
         "fileSizeLimit": 16000000,
         "policy": "DISALLOW_ALL",
         "restrictions": [
+            "conf",
             "jpg",
             "jpe",
             "jpeg",
@@ -107,8 +108,8 @@
             "showThumbs": true,
             "thumbMaxWidth": 64,
             "extensions": [
-                "jpg",
                 "jpe",
+                "jpg",
                 "jpeg",
                 "gif",
                 "png",
@@ -162,7 +163,8 @@
             "enabled": true,
             "extensions": [
                 "txt",
-                "csv"
+                "csv",
+                "conf"
             ]
         },
         "markdownRenderer": {
@@ -181,7 +183,8 @@
             "extensions": [
                 "txt",
                 "csv",
-                "md"
+                "md",
+                "conf"
             ]
         }
     },

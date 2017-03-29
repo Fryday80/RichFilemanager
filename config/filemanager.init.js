@@ -34,7 +34,11 @@ $('.fm-container').richFilemanager({
 
         },
         afterInit: function(fm, fmModel) {
-            parent.CKEDITOR.tools.callFunction(getParameterByName('DialogSelectionChangedFuncNum'), fm, fmModel);
+            try {
+                parent.CKEDITOR.tools.callFunction(getParameterByName('DialogSelectionChangedFuncNum'), fm, fmModel);
+            } catch (e) {
+
+            }
         }
     }
 });
